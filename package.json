@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/tuliofernandes/aws-iac-practice#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.157",
     "@types/node": "^24.9.2",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1692.0"
   }
 }
