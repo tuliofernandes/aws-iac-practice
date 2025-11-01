@@ -5,19 +5,19 @@ provider "aws" {
 
 # ======= IAM ROLE FOR THE LAMBDA =======
 resource "aws_iam_role" "lambda_role" {
-    name = "lambda_s3_role"
-    assume_role_policy = jsondecode({
-        Version = "2012-10-17",
-        Statement = [
-            {
-                Action = "sts:AssumeRole",
-                Effect = "Allow",
-                Principal = {
-                    Service = "lambda.amazonaws.com"
-                }
-            }
-        ]
-    })
+  name = "lambda_s3_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
 }
 
 # Inline policy for the lambda to access logs and S3
@@ -50,13 +50,13 @@ resource "aws_iam_role_policy" "lambda_policy" {
 
 # ======= S3 BUCKET =======
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "normalized_pics"
+  bucket = "normalized-pics"
 }
 
 # ======= LAMBDA PACKAGE =======
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/index.js" # The NodeJS script
+  source_file = "${path.module}/index.js"
   output_path = "${path.module}/index.zip"
 }
 
@@ -64,7 +64,7 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "my_lambda" {
   function_name = "lambda_s3_trigger"
   filename      = data.archive_file.lambda_zip.output_path
-  handler       = "index.handler" # module + function
+  handler       = "index.handler"
   runtime       = "nodejs20.x"
   role          = aws_iam_role.lambda_role.arn
   timeout       = 30
