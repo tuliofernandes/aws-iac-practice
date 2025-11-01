@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "deploy": "npm run build && cp package.json dist/ && cd dist && npm ci --omit=dev && cd .. && terraform apply -auto-approve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,6 +27,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.922.0",
     "aws-sdk": "^2.1692.0",
     "sharp": "^0.34.4"
   }
