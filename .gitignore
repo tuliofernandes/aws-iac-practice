@@ -26,3 +26,7 @@ override.tf.json
 
 # node_modules
 node_modules
+
+# Build
+dist
+index.zip
