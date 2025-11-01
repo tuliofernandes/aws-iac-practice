@@ -56,19 +56,21 @@ resource "aws_s3_bucket" "my_bucket" {
 # ======= LAMBDA PACKAGE =======
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/index.js"
-  output_path = "${path.module}/index.zip"
+  source_dir  = "${path.module}/dist"
+  output_path = "${path.module}/lambda.zip"
 }
+
 
 # ======= LAMBDA FUNCTION =======
 resource "aws_lambda_function" "my_lambda" {
-  function_name = "lambda_s3_trigger"
-  filename      = data.archive_file.lambda_zip.output_path
-  handler       = "index.handler"
-  runtime       = "nodejs20.x"
-  role          = aws_iam_role.lambda_role.arn
-  timeout       = 30
+  function_name    = "lambda_s3_trigger"
+  handler          = "index.handler" # mantém esse formato
+  runtime          = "nodejs20.x"
+  role             = aws_iam_role.lambda_role.arn
+  filename         = data.archive_file.lambda_zip.output_path
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
+
 
 # ======= PERMISSION TO ALLOW LAMBDA TO CALL S3 =======
 resource "aws_lambda_permission" "allow_s3" {
