@@ -1,0 +1,25 @@
+# Terraform local state files
+*.tfstate
+*.tfstate.*
+
+# Terraform logs
+crash.log
+
+# Local configs
+.terraform/
+.terraform.lock.hcl
+
+# Overrides and personal configs
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform automatic backup
+*.backup
+
+# Editor temporary files
+.vscode/
+.DS_Store
