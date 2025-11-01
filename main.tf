@@ -40,7 +40,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
         Effect = "Allow",
         Action = [
           "s3:GetObject",
-          "s3:ListBucket"
+          "s3:ListBucket",
+          "s3:PutObject"
         ],
         Resource = "*"
       }
