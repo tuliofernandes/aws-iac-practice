@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,9 +22,11 @@
   "devDependencies": {
     "@types/aws-lambda": "^8.10.157",
     "@types/node": "^24.9.2",
+    "@types/sharp": "^0.31.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "aws-sdk": "^2.1692.0"
+    "aws-sdk": "^2.1692.0",
+    "sharp": "^0.34.4"
   }
 }
